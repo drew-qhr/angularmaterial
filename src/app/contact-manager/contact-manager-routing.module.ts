@@ -1,0 +1,22 @@
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
+import { MainContentComponent } from './components/main-content/main-content.component';
+import { ContactManagerAppComponent } from './contact-manager-app.component';
+
+
+const routes: Routes = [
+  { path: '', component: ContactManagerAppComponent,
+    children: [
+      {path: '', component: MainContentComponent}
+    ]
+  },
+  { path: '**', redirectTo: '' }
+];
+
+
+@NgModule({
+  declarations: [],
+  imports: [RouterModule.forChild(routes)],
+  exports: [RouterModule]
+})
+export class ContactManagerRoutingModule { }
