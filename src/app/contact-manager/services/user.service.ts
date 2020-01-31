@@ -7,18 +7,27 @@ import { User } from '../models/user';
   providedIn: 'root'
 })
 export class UserService {
-  private _users: BehaviorSubject<User[]>;
+  private userList: BehaviorSubject<User[]>;
   private dataStore: {
     users: User[];
   };
 
   constructor(private http: HttpClient) {
     this.dataStore = { users: [] };
-    this._users = new BehaviorSubject<User[]>([]);
+    this.userList = new BehaviorSubject<User[]>([]);
   }
 
   get users(): Observable<User[]> {
-    return this._users.asObservable();
+    return this.userList.asObservable();
+  }
+
+  addUser(user: User): Promise<User> {
+    return new Promise((resolve, reject) => {
+      user.id = this.dataStore.users.length + 1;
+      this.dataStore.users.push(user);
+      this.userList.next(Object.assign({}, this.dataStore).users);
+      resolve(user);
+    });
   }
 
   userById(id: number) {
@@ -32,7 +41,7 @@ export class UserService {
     return this.http.get<User[]>(usersUrl)
       .subscribe(data => {
         this.dataStore.users = data;
-        this._users.next(Object.assign({}, this.dataStore).users);
+        this.userList.next(Object.assign({}, this.dataStore).users);
       }, error => {
         console.log('Failed to fetch users');
       });
