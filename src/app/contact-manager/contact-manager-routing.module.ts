@@ -5,9 +5,11 @@ import { ContactManagerAppComponent } from './contact-manager-app.component';
 
 
 const routes: Routes = [
-  { path: '', component: ContactManagerAppComponent,
+  {
+    path: '', component: ContactManagerAppComponent,
     children: [
-      {path: '', component: MainContentComponent}
+      { path: ':id', component: MainContentComponent },
+      { path: '', component: MainContentComponent }
     ]
   },
   { path: '**', redirectTo: '' }
@@ -19,4 +21,5 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class ContactManagerRoutingModule { }
+export class ContactManagerRoutingModule {
+}
