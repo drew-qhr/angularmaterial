@@ -7,10 +7,11 @@ import { MaterialModule } from '../shared/material.module';
 import { DemoRoutingModule } from './demo-routing.module';
 import { ButtonsComponent } from './buttons/buttons.component';
 import { FlexboxComponent } from './flexbox/flexbox.component';
+import { WorkflowComponent } from './workflow/workflow.component';
 
 
 @NgModule({
-  declarations: [ButtonsComponent, FlexboxComponent],
+  declarations: [ButtonsComponent, FlexboxComponent, WorkflowComponent],
   imports: [
     CommonModule,
     MaterialModule,
